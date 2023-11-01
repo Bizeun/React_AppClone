@@ -20,8 +20,12 @@ interface IHistorical {
 
 function Chart() {
   const { coinId } = useParams(); // directly get the id of the coin from the URL params
-  const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () =>
-    fetchCoinHistory(coinId!)
+  const { isLoading, data } = useQuery<IHistorical[]>(
+    ["ohlcv", coinId],
+    () => fetchCoinHistory(coinId!),
+    {
+      refetchInterval: 100000,
+    }
   );
   return (
     <div>
